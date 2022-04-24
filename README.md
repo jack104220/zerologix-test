@@ -15,9 +15,9 @@
 - 建立 Image
 <code>docker build . -t php8:0.0.0 </code>
 - 執行docker compose啟動服務，如已有mysql redis則去掉
-<code>docker compose up -d onramp mysql redis</code>
+<code>docker compose up -d zerologix mysql redis</code>
 - 進入container
-<code>docker compose exec onramp bash</code>
+<code>docker compose exec zerologix bash</code>
 - 安裝套件
 <code>composer install</code>
 - 調整環境變數 .env (container內外都行)
@@ -29,16 +29,17 @@
 - 啟動octane
 <code>php artisan octane:start --host=0.0.0.0</code>
 
-## 後端Tag操作有以下API
-- 查詢tag列表 <code>GET:/api/tags</code>
-- 查詢tag明細 <code>GET:/api/tags/{id}</code>
-- 新增tag <code>POST:/api/tags</code>
-- 修改tag <code>PATCH:/api/tags/{id}</code>
-- 刪除tag <code>DELETE:/api/tags/{id}</code>
+## ER-Model
+- 在資料夾內的ER-Model.png
 
-## 前端操作接口
-- tag內容輸出 <code>GET:/{objectId}</code>   AW-XXXX 那種
-- 接受活動 <code>GET:/receive</code> 當作是全部接收都打這個接口
+## 測試類
+- 單元測試
+    - 測試文章列表
+    - 測試文章最愛
+    - 測試文章取消最愛
+
+- 功能測試
+    - 文章列表
 
 ## 尚未完成
-- API查詢成效
+- SWAGGER產生用yml

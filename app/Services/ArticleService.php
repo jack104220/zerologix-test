@@ -45,7 +45,7 @@ class ArticleService
      */
     public function update(int $userId, int $articleId, string $content)
     {
-        $article = $this->articleRepo->getArticletByIdAndUserId($articleId, $userId);
+        $article = $this->articleRepo->getArticleByIdAndUserId($articleId, $userId);
         if (empty($article)) {
             throw new Exception('文章不存在');
         }
@@ -68,7 +68,7 @@ class ArticleService
      */
     public function delete(int $userId, int $articleId)
     {
-        $article = $this->articleRepo->getArticletByIdAndUserId($articleId, $userId);
+        $article = $this->articleRepo->getArticleByIdAndUserId($articleId, $userId);
         if (empty($article)) {
             throw new Exception('文章不存在');
         }

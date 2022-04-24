@@ -30,3 +30,9 @@ Route::prefix('articles')->middleware('login.check')->group(function () {
     Route::post('/{articleId}/favorite', [ArticleController::class, 'favorite']);
     Route::post('/{articleId}/share', [ArticleController::class, 'share']);
 });
+
+Route::apiResource('comments', CommentController::class)->middleware('login.check');
+
+Route::prefix('comments')->middleware('login.check')->group(function () {
+    Route::post('/{commentId}/favorite', [CommentController::class, 'favorite']);
+});

@@ -13,7 +13,7 @@ class ArticleRepository extends BaseRepository
         return $this->model->find($articleId);
     }
 
-    public function getArticletByIdAndUserId($id, $userId)
+    public function getArticleByIdAndUserId($id, $userId)
     {
         return $this->model
             ->where('id', $id)

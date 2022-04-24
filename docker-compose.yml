@@ -1,0 +1,44 @@
+# syntax version.
+version: "3.7"
+
+services:
+  mysql:
+    #如果作業系統為m1再打開
+    #platform: linux/x86_64
+    container_name: mysql
+    image: mariadb:10.5.8
+    ports:
+      - ${DB_PORT}:3306
+    environment: 
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks: 
+      - default
+    volumes:
+      - ${DB_DATA}:/var/lib/mysql
+
+  redis:
+    container_name: redis
+    image: redis:5.0.9-buster
+    ports:
+      - ${REDIS_PORT}:6379
+    stdin_open: true
+    tty: true
+    networks: 
+      - default
+
+  zerologix:
+    image: php8:0.0.0
+    container_name: zerologix
+    tty: true
+    ports:
+      - ${ZEROLOGIX_EXPOSE_PORT}:8000
+    volumes:
+      - ${ZEROLOGIX_VOLUMES}:/laravel
+    networks: 
+      - default
+
+networks:
+  default:
+    name: backend
+    driver: bridge
+    

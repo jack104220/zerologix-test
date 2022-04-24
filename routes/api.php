@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +22,11 @@ Route::prefix('users')->group(function () {
     Route::post('/register', [UserController::class, 'register']);
     Route::post('/logout', [UserController::class, 'logout'])->middleware('login.check');
     Route::post('/follow', [UserController::class, 'follow'])->middleware('login.check');
+});
+
+Route::apiResource('articles', ArticleController::class)->middleware('login.check');
+
+Route::prefix('articles')->middleware('login.check')->group(function () {
+    Route::post('/{articleId}/favorite', [ArticleController::class, 'favorite']);
+    Route::post('/{articleId}/share', [ArticleController::class, 'share']);
 });

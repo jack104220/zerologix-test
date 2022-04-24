@@ -121,7 +121,7 @@ class UserService
             return ['message' => 'followed'];
         }
 
-        $this->followRepo->delFollowed($userId, $followerId);
+        $check->delete();
         return ['message' => 'unfollowed'];
     }
 

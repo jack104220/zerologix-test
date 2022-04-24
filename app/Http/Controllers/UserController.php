@@ -27,7 +27,7 @@ class UserController extends Controller
             $data = $this->service->login($data['username'], $data['passwd']);
             return response()->json($data);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['message' => $e->getMessage()], 400);
         }
     }
 
@@ -48,7 +48,7 @@ class UserController extends Controller
             $data = $this->service->logout($token);
             return response()->json($data);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['message' => $e->getMessage()], 400);
         }
     }
 
@@ -69,7 +69,7 @@ class UserController extends Controller
             $data = $this->service->register($data['username'], $data['passwd']);
             return response()->json($data);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['message' => $e->getMessage()], 400);
         }
     }
 
@@ -86,9 +86,10 @@ class UserController extends Controller
                 'follower_id' => 'required|numeric|min:1',
             ]);
 
-            return $this->service->follow($request->input('user_id'), $data['follower_id']);
+            $response = $this->service->follow($request->input('user_id'), $data['follower_id']);
+            return response()->json($response); 
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['message' => $e->getMessage()], 400);
         }
     }
 

@@ -14,6 +14,16 @@ class ArticleService
         protected ArticleFavoriteRepository $articleFavoriteRepo
     ) {}
 
+    public function list($pageSize = 20)
+    {
+        $article = $this->articleRepo->getList($pageSize);
+        if (empty($article)) {
+            throw new Exception('文章不存在');
+        }
+
+        return $article->toArray();
+    }
+
     /**
      * 查詢單個文章
      *

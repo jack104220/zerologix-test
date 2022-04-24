@@ -10,9 +10,24 @@ class ArticleController extends Controller
 {
     public function __construct(protected ArticleService $service) {}
 
+    /**
+     * 列表
+     *
+     * @param Request $request
+     * @return string
+     */
     public function index(Request $request)
     {
-
+        try {
+            $data = $request->validate([
+                'page_size' => 'nullable|integer|min:5|max:100',
+            ]);
+            $response = $this->service->list($data['page_size'] ?? 20);
+            return response()->json($response); 
+        } catch (\Exception $e) {
+            throw $e;
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 
     /**

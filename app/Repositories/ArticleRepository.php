@@ -8,12 +8,12 @@ class ArticleRepository extends BaseRepository
 {
     public function __construct(protected Articles $model) {}
 
-    public function getArticleById($articleId)
+    public function getArticleById(int $articleId)
     {
         return $this->model->find($articleId);
     }
 
-    public function getArticleByIdAndUserId($id, $userId)
+    public function getArticleByIdAndUserId(int $id, int $userId)
     {
         return $this->model
             ->where('id', $id)
@@ -21,12 +21,21 @@ class ArticleRepository extends BaseRepository
             ->first();
     }
 
-    public function getDetailById($commentId)
+    public function getDetailById(int $commentId)
     {
         return $this->model
             ->with(['user:id,username', 'comments.user:id,username'])
             ->withCount(['favorite', 'comments'])
             ->where('id', $commentId)
             ->first();
+    }
+
+    public function getList(int $pageSize)
+    {
+        return $this->model
+            ->with(['user:id,username'])
+            ->withCount(['favorite', 'comments'])
+            ->orderBy('id', 'desc')
+            ->cursorPaginate($pageSize);
     }
 }

@@ -35,9 +35,14 @@ class ArticleController extends Controller
         }
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $articleId)
     {
-
+        try {
+            $response = $this->service->show($articleId);
+            return response()->json($response); 
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 
     /**

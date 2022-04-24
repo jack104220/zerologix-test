@@ -15,6 +15,22 @@ class ArticleService
     ) {}
 
     /**
+     * 查詢單個文章
+     *
+     * @param integer $articleId
+     * @return array
+     */
+    public function show(int $articleId)
+    {
+        $article = $this->articleRepo->getDetailById($articleId);
+        if (empty($article)) {
+            throw new Exception('文章不存在');
+        }
+
+        return $article->toArray();
+    }
+
+    /**
      * 建立文章
      *
      * @param integer $userId

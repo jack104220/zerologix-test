@@ -17,6 +17,9 @@ use App\Http\Controllers\CommentController;
 |
 */
 
+/**
+ * 用戶相關
+ */
 Route::prefix('users')->group(function () {
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/register', [UserController::class, 'register']);
@@ -24,6 +27,9 @@ Route::prefix('users')->group(function () {
     Route::post('/follow', [UserController::class, 'follow'])->middleware('login.check');
 });
 
+/**
+ * 文章相關
+ */
 Route::apiResource('articles', ArticleController::class)->middleware('login.check');
 
 Route::prefix('articles')->middleware('login.check')->group(function () {
@@ -31,6 +37,9 @@ Route::prefix('articles')->middleware('login.check')->group(function () {
     Route::post('/{articleId}/share', [ArticleController::class, 'share']);
 });
 
+/**
+ * 回覆相關
+ */
 Route::apiResource('comments', CommentController::class)->middleware('login.check')->except('index');
 
 Route::prefix('comments')->middleware('login.check')->group(function () {

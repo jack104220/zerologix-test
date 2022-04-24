@@ -20,4 +20,9 @@ class Articles extends Model
     {
         return $this->hasMany(ArticleFavorite::class, 'article_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(Users::class, 'id', 'user_id');
+    }
 }

@@ -31,7 +31,7 @@ Route::prefix('articles')->middleware('login.check')->group(function () {
     Route::post('/{articleId}/share', [ArticleController::class, 'share']);
 });
 
-Route::apiResource('comments', CommentController::class)->middleware('login.check');
+Route::apiResource('comments', CommentController::class)->middleware('login.check')->except('index');
 
 Route::prefix('comments')->middleware('login.check')->group(function () {
     Route::post('/{commentId}/favorite', [CommentController::class, 'favorite']);

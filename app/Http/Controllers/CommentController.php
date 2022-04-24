@@ -10,11 +10,6 @@ class CommentController extends Controller
 {
     public function __construct(protected CommentService $service) {}
 
-    public function index(Request $request)
-    {
-
-    }
-
     /**
      * 建立回覆
      *
@@ -36,9 +31,21 @@ class CommentController extends Controller
         }
     }
 
+    /**
+     * 查詢單個回覆
+     *
+     * @param Request $request
+     * @param int $commentId
+     * @return string
+     */
     public function show(Request $request, $commentId)
     {
-        
+        try {
+            $response = $this->service->show($commentId);
+            return response()->json($response); 
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 
     /**

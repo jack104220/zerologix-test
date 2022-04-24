@@ -20,4 +20,13 @@ class CommentRepository extends BaseRepository
             ->where('user_id', $userId)
             ->first();
     }
+
+    public function getDetailById($commentId)
+    {
+        return $this->model
+            ->with(['user:id,username'])
+            ->withCount('favorite')
+            ->where('id', $commentId)
+            ->first();
+    }
 }

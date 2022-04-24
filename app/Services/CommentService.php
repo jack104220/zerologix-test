@@ -16,6 +16,16 @@ class CommentService
         protected CommentFavoriteRepository $commentFavoriteRepo
     ) {}
 
+    public function show($commentId)
+    {
+        $comment = $this->commentRepo->getDetailById($commentId);
+        if (empty($comment)) {
+            throw new Exception('回覆不存在');
+        }
+
+        return $comment->toArray();
+    }
+
     /**
      * 建立回覆
      *
